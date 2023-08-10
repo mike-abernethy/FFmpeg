@@ -2264,8 +2264,12 @@ static int dash_write_packet(AVFormatContext *s, AVPacket *pkt)
                                  os->segment_index, os->bit_rate, os->start_pts);
         snprintf(os->full_path, sizeof(os->full_path), "%s%s", c->dirname,
                  os->filename);
+        //snprintf(os->temp_path, sizeof(os->temp_path),
+                //use_rename ? "%s.tmp" : "%s", os->full_path);
+
         snprintf(os->temp_path, sizeof(os->temp_path),
-                 use_rename ? "%s.tmp" : "%s", os->full_path);
+                use_rename ? "%s" : "%s", os->full_path);
+
         set_http_options(&opts, c);
         ret = dashenc_io_open(s, &os->out, os->temp_path, &opts);
         av_dict_free(&opts);
